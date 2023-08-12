@@ -16,43 +16,32 @@ const AppLayout = () => {
     const checkAuth = async () => {
       const user = await authUtils.isAuthenticated()
       if (!user) {
-
-        navigate('/Login')
-      }
-      else {
-        //save User
+        navigate('/login')
+      } else {
+        // save user
         dispatch(setUser(user))
         setLoading(false)
-
       }
-
     }
     checkAuth()
   }, [navigate])
+
   return (
     loading ? (
-      <Loading fullheight></Loading>
+      <Loading fullHeight />
     ) : (
-
       <Box sx={{
-
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
+        display: 'flex'
       }}>
-        <Sidebar>
-          <Box sx={{
-            flexGrow:1,
-            p:1,
-            width:'max-content'
-          }}>
-            <Outlet></Outlet>
-
-          </Box>
-        </Sidebar>
-
+        <Sidebar />
+        <Box sx={{
+          flexGrow: 1,
+          p: 1,
+          width: 'max-content'
+        }}>
+          <Outlet />
+        </Box>
       </Box>
-
     )
   )
 }

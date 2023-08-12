@@ -5,7 +5,7 @@ import favouriteReducer from './features/favouriteSlice'
 
 export const store = configureStore({
   reducer: {
-     user: userReducer,
+    user: userReducer,
     board: boardReducer,
     favourites: favouriteReducer
   }

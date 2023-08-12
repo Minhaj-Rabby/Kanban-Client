@@ -1,30 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import { Container, Box } from '@mui/material'
+import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import authUtils from '../../utils/authUtils'
 import Loading from '../common/Loading'
-import { Box, Container } from '@mui/material'
-import assests from '../../assets'
+import assets from '../../assets'
 
 const AuthLayout = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const checkAuth = async () => {
       const isAuth = await authUtils.isAuthenticated()
       if (!isAuth) {
         setLoading(false)
-      }
-      else {
+      } else {
         navigate('/')
       }
-
     }
     checkAuth()
   }, [navigate])
 
   return (
     loading ? (
-      <Loading fullheight></Loading>
+      <Loading fullHeight />
     ) : (
       <Container component='main' maxWidth='xs'>
         <Box sx={{
@@ -33,10 +32,9 @@ const AuthLayout = () => {
           alignItems: 'center',
           flexDirection: 'column'
         }}>
-          <img src={assests.images.logoDark} style={{ width: '100px' }} alt='app logo' />
+          <img src={assets.images.logoDark} style={{ width: '100px' }} alt='app logo' />
           <Outlet />
         </Box>
-
       </Container>
     )
   )

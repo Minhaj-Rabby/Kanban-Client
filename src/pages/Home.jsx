@@ -23,6 +23,7 @@ const Home = () => {
       setLoading(false)
     }
   }
+
   return (
     <Box sx={{
       height: '100%',

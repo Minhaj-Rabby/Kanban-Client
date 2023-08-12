@@ -6,9 +6,9 @@ import authApi from '../api/authApi'
 
 const Login = () => {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false);
-  const [usernameErrText, setUsernameErrText] = useState('');
-  const [passwordErrText, setPasswordErrText] = useState('');
+  const [loading, setLoading] = useState(false)
+  const [usernameErrText, setUsernameErrText] = useState('')
+  const [passwordErrText, setPasswordErrText] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,53 +21,43 @@ const Login = () => {
 
     let err = false
 
-    if (username == '') {
+    if (username === '') {
       err = true
       setUsernameErrText('Please fill this field')
     }
-    if (password == '') {
+    if (password === '') {
       err = true
       setPasswordErrText('Please fill this field')
     }
 
-    if (err)
-      return
+    if (err) return
+
     setLoading(true)
 
     try {
-      const res = await authApi.login({
-        username, password
-      })
+      const res = await authApi.login({ username, password })
       setLoading(false)
       localStorage.setItem('token', res.token)
       navigate('/')
-
-
     } catch (err) {
-      const errors = err.data.error
+      const errors = err.data.errors
       errors.forEach(e => {
-        if (e.param === 'usename') {
+        if (e.param === 'username') {
           setUsernameErrText(e.msg)
         }
-
         if (e.param === 'password') {
           setPasswordErrText(e.msg)
         }
-
-      });
+      })
       setLoading(false)
     }
-
-
   }
 
   return (
     <>
       <Box
         component='form'
-        sx={{
-          mt: 1
-        }}
+        sx={{ mt: 1 }}
         onSubmit={handleSubmit}
         noValidate
       >
@@ -82,7 +72,6 @@ const Login = () => {
           error={usernameErrText !== ''}
           helperText={usernameErrText}
         />
-
         <TextField
           margin='normal'
           required
@@ -95,12 +84,8 @@ const Login = () => {
           error={passwordErrText !== ''}
           helperText={passwordErrText}
         />
-
         <LoadingButton
-          sx={{
-            mt: 3,
-            mb: 2
-          }}
+          sx={{ mt: 3, mb: 2 }}
           variant='outlined'
           fullWidth
           color='success'
@@ -109,16 +94,11 @@ const Login = () => {
         >
           Login
         </LoadingButton>
-
       </Box>
       <Button
         component={Link}
         to='/signup'
-        sx={{
-          textTransform: 'none'
-
-        }}
-
+        sx={{ textTransform: 'none' }}
       >
         Don't have an account? Signup
       </Button>

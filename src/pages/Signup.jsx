@@ -6,10 +6,11 @@ import authApi from '../api/authApi'
 
 const Signup = () => {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false);
-  const [usernameErrText, setUsernameErrText] = useState('');
-  const [passwordErrText, setPasswordErrText] = useState('');
-  const [confirmPasswordErrText, setConfirmPasswordErrText] = useState('');
+
+  const [loading, setLoading] = useState(false)
+  const [usernameErrText, setUsernameErrText] = useState('')
+  const [passwordErrText, setPasswordErrText] = useState('')
+  const [confirmPasswordErrText, setConfirmPasswordErrText] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,65 +25,56 @@ const Signup = () => {
 
     let err = false
 
-    if (username == '') {
+    if (username === '') {
       err = true
       setUsernameErrText('Please fill this field')
     }
-    if (password == '') {
+    if (password === '') {
       err = true
       setPasswordErrText('Please fill this field')
     }
-    if (confirmPassword == '') {
+    if (confirmPassword === '') {
       err = true
       setConfirmPasswordErrText('Please fill this field')
     }
     if (password !== confirmPassword) {
       err = true
-      setConfirmPasswordErrText('Confirm Password not match')
+      setConfirmPasswordErrText('Confirm password not match')
     }
-    if (err)
-      return
+
+    if (err) return
+
     setLoading(true)
 
     try {
       const res = await authApi.signup({
-        username,password,confirmPassword
+        username, password, confirmPassword
       })
       setLoading(false)
-      localStorage.setItem('token',res.token)
+      localStorage.setItem('token', res.token)
       navigate('/')
-
-
     } catch (err) {
-      const errors = err.data.error
+      const errors = err.data.errors
       errors.forEach(e => {
-        if (e.param === 'usename') {
+        if (e.param === 'username') {
           setUsernameErrText(e.msg)
         }
-
         if (e.param === 'password') {
           setPasswordErrText(e.msg)
         }
-
         if (e.param === 'confirmPassword') {
           setConfirmPasswordErrText(e.msg)
         }
-
-      });
+      })
       setLoading(false)
     }
-
-
   }
-
 
   return (
     <>
       <Box
         component='form'
-        sx={{
-          mt: 1
-        }}
+        sx={{ mt: 1 }}
         onSubmit={handleSubmit}
         noValidate
       >
@@ -96,10 +88,7 @@ const Signup = () => {
           disabled={loading}
           error={usernameErrText !== ''}
           helperText={usernameErrText}
-
-
         />
-
         <TextField
           margin='normal'
           required
@@ -117,37 +106,28 @@ const Signup = () => {
           required
           fullWidth
           id='confirmPassword'
-          label='ConfirmPassword'
+          label='Confirm Password'
           name='confirmPassword'
           type='password'
           disabled={loading}
           error={confirmPasswordErrText !== ''}
           helperText={confirmPasswordErrText}
         />
-
         <LoadingButton
-          sx={{
-            mt: 3,
-            mb: 2
-          }}
+          sx={{ mt: 3, mb: 2 }}
           variant='outlined'
           fullWidth
           color='success'
           type='submit'
           loading={loading}
         >
-          SignUp
+          Signup
         </LoadingButton>
-
       </Box>
       <Button
         component={Link}
         to='/login'
-        sx={{
-          textTransform: 'none'
-
-        }}
-
+        sx={{ textTransform: 'none' }}
       >
         Already have an account? Login
       </Button>
