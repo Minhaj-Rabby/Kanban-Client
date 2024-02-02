@@ -24,7 +24,7 @@ axiosClient.interceptors.response.use(response => {
   return response
 }, err => {
   if (!err.response) {
-    return alert(err)
+    // return alert(err)
   }
   throw err.response
 })

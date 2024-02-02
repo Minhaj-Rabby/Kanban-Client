@@ -37,7 +37,7 @@ const Board = () => {
         setIsFavourite(res.favourite)
         setIcon(res.icon)
       } catch (err) {
-        alert(err)
+        //alert(err)
       }
     }
     getBoard()
@@ -60,7 +60,7 @@ const Board = () => {
     try {
       await boardApi.update(boardId, { icon: newIcon })
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -86,7 +86,7 @@ const Board = () => {
       try {
         await boardApi.update(boardId, { title: newTitle })
       } catch (err) {
-        alert(err)
+        //alert(err)
       }
     }, timeout);
   }
@@ -99,7 +99,7 @@ const Board = () => {
       try {
         await boardApi.update(boardId, { description: newDescription })
       } catch (err) {
-        alert(err)
+        //alert(err)
       }
     }, timeout);
   }
@@ -109,14 +109,14 @@ const Board = () => {
       const board = await boardApi.update(boardId, { favourite: !isFavourite })
       let newFavouriteList = [...favouriteList]
       if (isFavourite) {
-        newFavouriteList = newFavouriteList.filter(e => e.id !== boardId)
+        newFavouriteList = newFavouriteList?.filter(e => e.id !== boardId)
       } else {
         newFavouriteList.unshift(board)
       }
       dispatch(setFavouriteList(newFavouriteList))
       setIsFavourite(!isFavourite)
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -124,11 +124,11 @@ const Board = () => {
     try {
       await boardApi.delete(boardId)
       if (isFavourite) {
-        const newFavouriteList = favouriteList.filter(e => e.id !== boardId)
+        const newFavouriteList = favouriteList?.filter(e => e.id !== boardId)
         dispatch(setFavouriteList(newFavouriteList))
       }
 
-      const newList = boards.filter(e => e.id !== boardId)
+      const newList = boards?.filter(e => e.id !== boardId)
       if (newList.length === 0) {
         navigate('/boards')
       } else {
@@ -136,7 +136,7 @@ const Board = () => {
       }
       dispatch(setBoards(newList))
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 

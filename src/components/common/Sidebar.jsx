@@ -18,7 +18,7 @@ const Sidebar = () => {
   const { boardId } = useParams()
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const sidebarWidth = 250
+  const sidebarWidth = 200
 
   useEffect(() => {
     const getBoards = async () => {
@@ -26,15 +26,15 @@ const Sidebar = () => {
         const res = await boardApi.getAll()
         dispatch(setBoards(res))
       } catch (err) {
-        alert(err)
+        //alert(err)
       }
     }
     getBoards()
   }, [dispatch])
 
   useEffect(() => {
-    const activeItem = boards.findIndex(e => e.id === boardId)
-    if (boards.length > 0 && boardId === undefined) {
+    const activeItem = boards?.findIndex(e => e.id === boardId)
+    if (boards?.length > 0 && boardId === undefined) {
       navigate(`/boards/${boards[0].id}`)
     }
     setActiveIndex(activeItem)
@@ -57,7 +57,7 @@ const Sidebar = () => {
     try {
       await boardApi.updatePositoin({ boards: newList })
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -68,7 +68,7 @@ const Sidebar = () => {
       dispatch(setBoards(newList))
       navigate(`/boards/${res.id}`)
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -129,7 +129,7 @@ const Sidebar = () => {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {
-                  boards.map((item, index) => (
+                  boards?.map((item, index) => (
                     <Draggable key={item.id} draggableId={item.id} index={index}>
                       {(provided, snapshot) => (
                         <ListItemButton

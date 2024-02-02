@@ -52,7 +52,7 @@ const Kanban = props => {
       })
       setData(data)
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -61,17 +61,17 @@ const Kanban = props => {
       const section = await sectionApi.create(boardId)
       setData([...data, section])
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
   const deleteSection = async (sectionId) => {
     try {
       await sectionApi.delete(boardId, sectionId)
-      const newData = [...data].filter(e => e.id !== sectionId)
+      const newData = [...data]?.filter(e => e.id !== sectionId)
       setData(newData)
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -86,7 +86,7 @@ const Kanban = props => {
       try {
         await sectionApi.update(boardId, sectionId, { title: newTitle })
       } catch (err) {
-        alert(err)
+        //alert(err)
       }
     }, timeout);
   }
@@ -99,7 +99,7 @@ const Kanban = props => {
       newData[index].tasks.unshift(task)
       setData(newData)
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -142,7 +142,7 @@ const Kanban = props => {
           overflowX: 'auto'
         }}>
           {
-            data.map(section => (
+            data?.map(section => (
               <div key={section.id} style={{ width: '300px' }}>
                 <Droppable key={section.id} droppableId={section.id}>
                   {(provided) => (
@@ -194,7 +194,7 @@ const Kanban = props => {
                       </Box>
                       {/* tasks */}
                       {
-                        section.tasks.map((task, index) => (
+                        section?.tasks?.map((task, index) => (
                           <Draggable key={task.id} draggableId={task.id} index={index}>
                             {(provided, snapshot) => (
                               <Card

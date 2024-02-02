@@ -65,7 +65,7 @@ const TaskModal = props => {
       props.onDelete(task)
       setTask(undefined)
     } catch (err) {
-      alert(err)
+      //alert(err)
     }
   }
 
@@ -76,7 +76,7 @@ const TaskModal = props => {
       try {
         await taskApi.update(boardId, task.id, { title: newTitle })
       } catch (err) {
-        alert(err)
+        //alert(err)
       }
     }, timeout)
 
@@ -96,7 +96,7 @@ const TaskModal = props => {
         try {
           await taskApi.update(boardId, task.id, { content: data })
         } catch (err) {
-          alert(err)
+          //alert(err)
         }
       }, timeout);
 
